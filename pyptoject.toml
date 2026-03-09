@@ -1,0 +1,21 @@
+[project]
+name = "TaskTrackerCLI"
+version = '0.0.1'
+description = ''
+license = 'MIT'
+readme = 'README.md'
+authors = [{ name = "Jonata Mendes"}]
+requires-python = ">=3.13"
+dependencies = [""]
+
+[project.url]
+Homepage = "https://github.com/jturingdev/tasktrackercli"
+Repository = "https://github.com/jturingdev/tasktrackercli.git"
+
+[project.scripts]
+task = "task.cli:run"
+
+[project.option-dependencies]
+dev = ["pytest"]
+
+[tool.setuptools.packages.find]
