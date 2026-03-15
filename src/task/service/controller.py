@@ -45,24 +45,14 @@ class TaskManager:
     def mark_progress(self, task_id):
         for task in self.tasks:
             if task["id"] == task_id:
-                while True:
-                    try:
-                        task["status"] = Status.PROGRESS
-                        json_repo.save_tasks(filename=self.filename, tasks=self.tasks)
-                        break
-                    except ValueError as e:
-                        logger.exception("")
+                task["status"] = Status.PROGRESS.name
+                json_repo.save_tasks(filename=self.filename, tasks=self.tasks)
 
     def mark_done(self, task_id):
         for task in self.tasks:
             if task["id"] == task_id:
-                while True:
-                    try:
-                        task["status"] = Status.DONE
-                        json_repo.save_tasks(filename=self.filename, tasks=self.tasks)
-                        break
-                    except ValueError as e:
-                        logger.exception("")
+                task["status"] = Status.DONE.name
+                json_repo.save_tasks(filename=self.filename, tasks=self.tasks)
 
     def update_task(self, task_id, **kwargs) -> bool:
         "Update Task"

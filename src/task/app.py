@@ -28,7 +28,7 @@ def main():
     sub = parser.add_subparsers(dest="command")
 
     list_tasks = sub.add_parser("list")
-    list_tasks.add_argument('filter',choices=['all','todo','done','progress'], type=str, help='List a task')
+    list_tasks.add_argument('filter', choices=['all','todo','done','in-progress'], type=str, help='List a task')
 
     add_task = sub.add_parser("add")
     add_task.add_argument('title')
@@ -63,11 +63,11 @@ def main():
         if args.filter == "all":
             print(manager.list_tasks())
         elif args.filter == 'done':
-            print(manager.list_tasks_status(status=Status.DONE))
+            print(manager.list_tasks_status(status=str(Status.DONE.name)))
         elif args.filter == 'todo':
-            print(manager.list_tasks_status(status=Status.TODO))
+            print(manager.list_tasks_status(status=str(Status.TODO.name)))
         elif args.filter == 'in-progress':
-            print(manager.list_tasks_status(status=Status.PROGRESS))
+            print(manager.list_tasks_status(status=str(Status.PROGRESS.name)))
 
     elif args.command == 'mark':
         if args.status == "done":

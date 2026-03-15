@@ -16,7 +16,6 @@
 
 - Python 3.13+: Linguagem base.
 - JSON: Formato para armazenamento de dados.
-- Pandas: Utilizado para a manipulação e exibição de tabelas de dados.
 - Logging: Sistema de registo de erros e eventos para maior fiabilidade.
 - UUID: Para geração de chaves primárias únicas.
 
@@ -28,41 +27,37 @@
 - Stack
 - Queue
 
-# Complexidade das Operacoes
-- list O(n)
-- add
-- remove
-- update
-
 # 📋 Como Utilizar
 Pré-requisitos
-
-# Certifique-se de ter o Python e o Pandas instalados:
-    Bash: pip install pandas
 
 # Execução:
 - Clone o repositório. 
 - Navegue até à pasta do projeto. 
 - Execute o comando:
-- Bash: python app.py
+- Bash: python install -e .
 
 # Menu de Opções
 ## Ao iniciar, terá acesso ao seguinte menu:
-- Add Task: Cria uma nova tarefa solicitando título, descrição, categoria e autor.
-- List Tasks: Exibe todas as tarefas guardadas no sistema.
-- Update: Permite modificar campos específicos (Título, Descrição, Status, etc.) de uma tarefa existente.
-- Delete: Remove uma tarefa permanentemente através do ID ou Título.
-- Exit (q): Encerra o programa em segurança.
+- Add Task: [task-cli add title description category author status priority term]
+- List Tasks: [task-cli list all]
+- List Task by status: [task-cli list [done or progress] ]
+- Mark Status: [task-cli id [done or progress]]
+- Update: [id --title --description --category --author --status --priority --term]
+- Delete: [id]
 
 # 📂 Estrutura de Dados
 ## As tarefas são armazenadas no formato:
 JSON
 {
-    "id": "uuid-gerado-automaticamente",
+    "id": "id como numero inteiro"
+    "uuid": "uuid-gerado-automaticamente",
     "title": "Exemplo de Tarefa",
     "description": "Detalhes da atividade",
-    "category": "WORK",
-    "status": "todo",
+    "author": "Your name"
+    "category": WORK,
+    "status": TODO,
+    "priority": NORMAL,
+    "term": TODAY,
     "createdAt": "dd/mm/aaaa hh:mm",
     "updateAt": "dd/mm/aaaa hh:mm"
 }
