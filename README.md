@@ -6,6 +6,7 @@
 # 🚀 Funcionalidades
 
 - Gestão Completa (CRUD): Adicione, visualize, atualize e remova tarefas de forma intuitiva.
+- Filtragem personalizada: filtragem de tarefas por status done ou em progresso
 - Identificação Única: Cada tarefa recebe um UUID (Universally Unique Identifier) para garantir que não haja conflitos.
 - Persistência Automática: Os dados são guardados em tempo real num ficheiro tasks.json.
 - Categorização e Status: Organize o seu fluxo com categorias (Work, School, Personal) e estados (Todo, Progress, Done).
@@ -23,9 +24,27 @@
  - SRP - Single Responsability Principle
  - Separation of Concerns(SOC)
 
-# Estruturas de Dados Utilizadas:
-- Stack
-- Queue
+# DataStructures and Complexity Operations
+## Add task 
+    Data structure: list
+    Complexity: O(1)
+    
+## List tasks
+    Data structure: list
+    Complexity: O(n)
+    
+## Mark task
+    Data structure: list
+    Search + update
+    Complexity: O(n)
+
+## Update task
+    Data structure: list
+    Complexity: O(n)
+
+## Remove task
+    Data structure: list
+    Complexity: O(n)
 
 # 📋 Como Utilizar
 Pré-requisitos
