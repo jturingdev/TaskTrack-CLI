@@ -35,13 +35,14 @@ Pré-requisitos
 - Navegue até à pasta do projeto. 
 - Execute o comando:
 - Bash: python install -e .
+  - PYTHONPATH=src
 
 # Menu de Opções
 ## Ao iniciar, terá acesso ao seguinte menu:
 - Add Task: [task-cli add title description category author status priority term]
 - List Tasks: [task-cli list all]
 - List Task by status: [task-cli list [done or progress] ]
-- Mark Status: [task-cli id [done or progress]]
+- Mark Status: [task-cli id mark [done or progress]]
 - Update: [id --title --description --category --author --status --priority --term]
 - Delete: [id]
 
