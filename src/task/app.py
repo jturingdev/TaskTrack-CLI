@@ -1,10 +1,11 @@
 import argparse
 import argparse as arg
+import sys
 from pathlib import Path
 import logging
 
-from src.task.models.task import Status, Priority, Category
-from src.task.service.controller import TaskManager
+from task.models.task import Status
+from task.service.controller import TaskManager
 
 logging.basicConfig()
 logger = logging.getLogger()
@@ -13,77 +14,92 @@ path = Path('/')
 
 manager = TaskManager()
 
-
-def main():
-    ""
-    if arg.ArgumentParser == True:
-        cli_mode()
-    else:
-        interactive_mode()
-
-def cli_mode():
-    "argparse logic"
+def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog='TaskerTrackCLI',
         description='Management in Tasks',
         epilog='Text at the bottom of help'
     )
-    parser.add_argument('task-cli''list', type=str, help='List a task')
-    parser.add_argument('task-cli''list done', type=str, help='List a task')
-    parser.add_argument('task-cli''list todo', type=str, help='List a task')
-    parser.add_argument('task-cli''list in-progress', type=str, help='List a task')
+    return parser
 
-    parser.add_argument('task-cli''mark-in-progress''id', type=str, help='List a task')
-    parser.add_argument('task-cli''mark-done''id', type=str, help='List a task')
+parser = build_parser()
 
-    parser.add_argument('task-cli''add''title''description''category''author''status''priority''term', type=str, help='Add a task')
-    parser.add_argument('task-cli''update''id''title''description''category''author''status''priority''term', type=str, help='Update a task')
-    parser.add_argument('task-cli''remove''id', type=str, help='Remove a task')
+def main():
+    sub = parser.add_subparsers(dest="command")
+
+    list_tasks = sub.add_parser("list")
+    list_tasks.add_argument('filter',choices=['all','todo','done','progress'], type=str, help='List a task')
+
+    add_task = sub.add_parser("add")
+    add_task.add_argument('title')
+    add_task.add_argument('description')
+    add_task.add_argument('category')
+    add_task.add_argument('author')
+    add_task.add_argument('status')
+    add_task.add_argument('priority')
+    add_task.add_argument('term', type=str, help='Add a task')
+
+    mark_task = sub.add_parser("mark")
+    mark_task.add_argument('id', type=int, help='List a task')
+    mark_task.add_argument('status',choices=['done','in-progress'], type=str, help='List a task')
+
+    update_task = sub.add_parser("update")
+    update_task.add_argument("id", type=int)
+    update_task.add_argument("--title")
+    update_task.add_argument("--description")
+    update_task.add_argument("--category")
+    update_task.add_argument("--author")
+    update_task.add_argument("--status")
+    update_task.add_argument("--priority")
+    update_task.add_argument("--term")
+
+
+    remove_task = sub.add_parser("remove")
+    remove_task.add_argument('id', type=int, help='Remove a task')
+
     args = parser.parse_args()
-    if args == 'list':
-        print(manager.list_tasks())
-        if args == 'done':
-            print(manager.list_tasks_status(args.status))
-        elif args == 'todo':
-            print(manager.list_tasks_status(args.status))
-        elif args == 'in-progress':
-            print(manager.list_tasks_status(args.status))
-    elif args == 'mark':
-        print(manager.mark_task())
-    elif args == 'add':
-        print(manager.add_task(args.title, args.description, args.category, args.status, args.priority, args.term))
-    elif args == 'update':
-        print(manager.update_task(args.option, ))
-    elif args == 'remove':
-        print(manager.delete())
 
-def interactive_mode():
-        while True:
-            manager.list_tasks()
-            options = "\n1. Add Task\n2. List Tasks\n3. Update\n4. Delete\nq. Exit"
-            print(options)
-            try:
-                opc = input("\nSelect option: ")
-                match opc:
-                    case '1':
-                        title = str(input())
-                        desc = str(input())
-                        cat = str(input(Category))
-                        author = str(input())
-                        status = str(input(Status))
-                        priority = str(input(Priority))
-                        manager.add_task(title, desc, cat, author, status, priority)
-                    case '2':
-                        manager.list_tasks_status()
-                    case '3':
-                        manager.update_task()
-                    case '4':
-                        manager.delete()
-                    case 'q':
-                        break
-                    case _:
-                        print("Not a option")
-            except ValueError as e:
-                logging.error("error")
-            except Exception as e:
-                logging.warning("error")
+    if args.command == 'list':
+        if args.filter == "all":
+            print(manager.list_tasks())
+        elif args.filter == 'done':
+            print(manager.list_tasks_status(status=Status.DONE))
+        elif args.filter == 'todo':
+            print(manager.list_tasks_status(status=Status.TODO))
+        elif args.filter == 'in-progress':
+            print(manager.list_tasks_status(status=Status.PROGRESS))
+
+    elif args.command == 'mark':
+        if args.status == "done":
+            manager.mark_done(task_id=args.id)
+        elif args.status == "in-progress":
+            manager.mark_progress(task_id=args.id)
+
+    elif args.command == 'add':
+        manager.add_task(
+            title=args.title,
+            description=args.description,
+            category=args.category,
+            author=args.author,
+            status=args.status,
+            priority=args.priority,
+            term=args.term
+        )
+        print(f"✅ Tarefa '{args.title}' adicionada com sucesso!")
+
+    elif args.command == 'update':
+            manager.update_task(
+                task_id=args.id,
+                title=args.title,
+                desc=args.description,
+                category=args.category,
+                author=args.author,
+                status=args.status,
+                priority=args.priority,
+                term=args.term
+            )
+    elif args.command == 'remove':
+            manager.delete(task_id=args.id)
+
+if __name__ == "__main__":
+    main()

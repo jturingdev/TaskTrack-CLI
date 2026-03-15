@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "TaskTrackerCLI"
+version = "0.1"
+description = "CLI Task Tracker"
+authors = [{ name = "jturingdev"}]
+dependencies = []
+
+[project.scripts]
+task-cli = "task.app:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

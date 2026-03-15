@@ -1,9 +1,6 @@
 import json
 import logging
 
-from src.task.models import task
-
-
 def load_tasks(filename):
     try:
         with open(filename, 'r', encoding="utf-8") as f:
@@ -17,7 +14,6 @@ def load_tasks(filename):
 def save_tasks(filename, tasks):
     try:
         with open(filename, 'w', encoding="utf-8") as f:
-            tasks = task.to_dict()
             json.dump(tasks, f, indent=4)
             logging.info(f"{f} -- Saved")
     except FileExistsError:

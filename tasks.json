@@ -1,1 +1,15 @@
-[]
+[
+    {
+        "id": 1,
+        "uuid": "a8ab85cd-b6dd-4a02-83cf-96edacf298ed",
+        "title": "TaskTracker deplay v0.1",
+        "description": "Commit v0.1 first release TaskTrackerCLI",
+        "category": "WORK",
+        "author": "jturingdev",
+        "status": "DONE",
+        "priority": "NORMAL",
+        "term": "TODAY",
+        "createdAt": "14/03/2026 21:34",
+        "updatedAt": "14/03/2026 21:34"
+    }
+]
